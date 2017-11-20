@@ -1,0 +1,28 @@
+.centrado {
+    text-align: center;
+    
+}
+
+.tamano{
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.margen {
+    margin: 20px;
+    
+}
+
+#nombreUsuario {
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.temporal {
+    margin-top: 30px;
+}
+
+h3 {
+    color: red;
+}
+
