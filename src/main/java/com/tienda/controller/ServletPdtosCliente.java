@@ -5,8 +5,6 @@
  */
 package com.tienda.controller;
 
-import com.tienda.jpa.ProveedoresJpaController;
-import com.tienda.util.JPAFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author GABRIEL
+ * @author Carlos
  */
-public class ServletListadoProveedores extends HttpServlet {
+public class ServletPdtosCliente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,11 +33,9 @@ public class ServletListadoProveedores extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        ProveedoresJpaController proveedoresJpaController = new 
-            ProveedoresJpaController(JPAFactory.getFACTORY());
+        String documento = request.getParameter("txtDocumento");
         
-        session.setAttribute("PROVEEDORES", proveedoresJpaController.findProveedoresEntities());
-        request.getRequestDispatcher("view/listarProveedores.jsp").forward(request, response);
+        
         
     }
 

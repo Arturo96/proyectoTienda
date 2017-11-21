@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -251,6 +252,21 @@ public class ProductosJpaController implements Serializable {
         }
     }
 
+    public Productos findProductosbyName(String nombrepdto) {
+        EntityManager em = getEntityManager();
+        Productos productos = null;
+        try {
+            productos = (Productos) em.createNamedQuery("Productos.findByNombrepdto")
+                    .setParameter("nombrepdto", nombrepdto)
+                    .getSingleResult();
+            return productos;
+        } catch (NoResultException ex) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getProductosCount() {
         EntityManager em = getEntityManager();
         try {
@@ -263,5 +279,5 @@ public class ProductosJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

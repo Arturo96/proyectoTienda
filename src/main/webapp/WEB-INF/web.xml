@@ -16,6 +16,10 @@
         <servlet-name>ServletListadoProveedores</servlet-name>
         <servlet-class>com.tienda.controller.ServletListadoProveedores</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletPdtosCliente</servlet-name>
+        <servlet-class>com.tienda.controller.ServletPdtosCliente</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ServletListadoProveedores</servlet-name>
         <url-pattern>/ServletListadoProveedores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletPdtosCliente</servlet-name>
+        <url-pattern>/ServletPdtosCliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -66,7 +66,7 @@
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
                                 <li><a href="ServletListadoClientes">Consultar clientes</a></li>
-                                <li><a href="#">Proveedores</a></li>
+                                <li><a href="ServletListadoProveedores">Proveedores</a></li>
                                 <li><a href="#">Registrar compra</a></li>
                                 </c:when>
 
@@ -117,7 +117,7 @@
         <div class="jumbotron margen">
             <div class="container">
                 <div class="centrado">
-                    <form id="frmCliente" method="POST" action="${pageContext.servletContext.contextPath}/ServletProductos">
+                    <form id="frmCliente" method="POST" action="${pageContext.servletContext.contextPath}/ServletPdtosCliente">
                         <label class="tamano">Ingresa tu documento:</label>
                         <input type="text" name="txtDocumento"
                                id="txtDocumento" required />

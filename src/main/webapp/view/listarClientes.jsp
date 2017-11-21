@@ -1,8 +1,4 @@
-<%-- 
-    Document   : index
-    Created on : 5/11/2017, 02:11:52 PM
-    Author     : Carlos
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,13 +59,13 @@
                             <c:choose>
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
-                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/view/listarProveedores.jsp">Proveedores</a></li>
+                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
                                 <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
-                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
+                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
                                 
                                 <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
@@ -112,8 +108,18 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
-                <h1>Listado de clientes</h1>
-                <table class="table table-bordered">
+                <h2 class="text-center">Listado de clientes</h2>
+                <table class="table table-condensed table-hover table-striped table-bordered">
+                    
+                    <tr>
+                        <th>Documento</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Dirección</th>
+                        <th>Email</th>
+                    </tr>
+                    
                     <c:forEach var="cliente" items="${sessionScope.CLIENTES}">
                         <tr>
                         <td><c:out value="${cliente.getNrodocumento()}"></c:out></td>
@@ -121,6 +127,8 @@
                         <td><c:out value="${cliente.getApellidos()}"></c:out></td>
                         <td><c:out value="${cliente.getTelefonocte()}"></c:out></td>
                         <td><c:out value="${cliente.getDireccioncte()}"></c:out></td>
+                        <td><c:out value="${cliente.getEmailcte()}"></c:out></td>
+                        
                         </tr>
                     </c:forEach>
                 </table>

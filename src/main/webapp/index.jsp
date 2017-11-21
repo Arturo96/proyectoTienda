@@ -64,7 +64,7 @@
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/view/listarProveedores.jsp">Proveedores</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
                                 <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
 
