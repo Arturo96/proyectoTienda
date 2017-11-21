@@ -8,6 +8,14 @@
         <servlet-name>ServletCompra</servlet-name>
         <servlet-class>com.tienda.controller.ServletCompra</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletListadoClientes</servlet-name>
+        <servlet-class>com.tienda.controller.ServletListadoClientes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletListadoProveedores</servlet-name>
+        <servlet-class>com.tienda.controller.ServletListadoProveedores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>ServletCompra</servlet-name>
         <url-pattern>/ServletCompra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListadoClientes</servlet-name>
+        <url-pattern>/ServletListadoClientes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListadoProveedores</servlet-name>
+        <url-pattern>/ServletListadoProveedores</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

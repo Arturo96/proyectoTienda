@@ -65,13 +65,13 @@
                             <c:choose>
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
-                                <li><a href="#">Consultar clientes</a></li>
+                                <li><a href="ServletListadoClientes">Consultar clientes</a></li>
                                 <li><a href="#">Proveedores</a></li>
                                 <li><a href="#">Registrar compra</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
-                                <li><a href="#">Consultar clientes</a></li>
+                                <li><a href="ServletListadoClientes">Consultar clientes</a></li>
 
                                 <li><a href="#">Registrar compra</a></li>
                                 </c:when>
