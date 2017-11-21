@@ -81,6 +81,7 @@ public class ServletCompra extends HttpServlet {
      
             cliente = new Clientes(documento);
             cliente.setTipodocumento(tipoidclientesJpaController.findTipoidclientes(tipodocumento));
+            cliente.setNombres(nombres);
             cliente.setApellidos(apellidos);
             cliente.setTelefonocte(telefono);
             cliente.setDireccioncte(direccion);
@@ -146,6 +147,11 @@ public class ServletCompra extends HttpServlet {
         Usuarios usuario = usuariosJpaController.findUsuarios(email_usuario);
         
         factura.setUsuario(usuario);
+        try {
+            facturasJpaController.create(factura);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         
@@ -158,7 +164,10 @@ public class ServletCompra extends HttpServlet {
         
         for (CarroCompra detallepdto : carrito) {
             producto = productosJpaController.findProductosbyName(detallepdto.getNombrePdto());
-             detalle = new Detallefacturas(id_factura, producto.getIdpdto());
+//             detalle = new Detallefacturas(id_factura, producto.getIdpdto());
+             detalle = new Detallefacturas();
+             detalle.setFacturas(factura);
+             detalle.setProductos(producto);
              detalle.setCantidad(detallepdto.getCantidad());
             try {
                 detallefacturasJpaController.create(detalle);

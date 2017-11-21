@@ -5,6 +5,8 @@
  */
 package com.tienda.controller;
 
+import com.tienda.jpa.ProductosJpaController;
+import com.tienda.util.JPAFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -55,10 +57,12 @@ public class ServletUsuario extends HttpServlet {
             }
         } 
         
-        
+        ProductosJpaController productosJpaController = new
+                ProductosJpaController(JPAFactory.getFACTORY());
 
         session.setAttribute("SESION", rol);
         session.setAttribute("USUARIO", email);
+        session.setAttribute("PRODUCTOS", productosJpaController.findProductosEntities());
         request.getRequestDispatcher(path).forward(request, response);
 
     }

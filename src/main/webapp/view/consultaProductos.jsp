@@ -65,8 +65,8 @@
                             <c:choose>
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
-                                <li><a href="ServletListadoClientes">Consultar clientes</a></li>
-                                <li><a href="ServletListadoProveedores">Proveedores</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
                                 <li><a href="#">Registrar compra</a></li>
                                 </c:when>
 

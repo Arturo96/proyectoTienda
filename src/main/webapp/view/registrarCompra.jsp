@@ -181,7 +181,16 @@
                             <div class="form-group">
                                 <label for="nombrePdto1" class="col-sm-5 control-label">Nombre del producto</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="txtNombrePdto1" class="form-control" id="nombrePdto1" required>
+                                   
+                                    <select name="txtNombrePdto1" class="form-control" >
+                                        <c:forEach var="producto" items="${sessionScope.PRODUCTOS}">
+                                            <option value="${producto.getNombrepdto()}">
+                                                <c:out value="${producto.getNombrepdto()}"></c:out>
+                                            </option>
+                                        </c:forEach>
+                                        
+                                    </select>
+                                <!--    <input type="text" name="" class="form-control" id="nombrePdto1" required>-->
                                 </div>
                                 <div class="col-sm-4"></div>
                             </div>
@@ -212,7 +221,7 @@
                     </form>
                 </div>
 
-                                <h3 class="text-center"><strong><c:out value="${sessionScope.MENSAJE}"></c:out></strong></h3>
+                <h3 class="text-center"><strong><c:out value="${sessionScope.MENSAJE}"></c:out></strong></h3>
 
                 </div>
             </div>
@@ -235,11 +244,11 @@
             ================================================== -->
             <!-- Placed at the end of the document so the pages load faster -->
             <script src="${pageContext.servletContext.contextPath}/js/jquery-3.2.1.min.js"></script>
-                <script src="${pageContext.servletContext.contextPath}/js/acciones.js"></script>
-                <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-                <script src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script>
-                <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-                <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/acciones.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
 
