@@ -17,22 +17,35 @@ import com.tienda.model.Detallefacturas;
 import com.tienda.model.Facturas;
 import com.tienda.model.Productos;
 import com.tienda.model.Usuarios;
+import com.tienda.reportes.Reporte;
+import com.tienda.util.Conexion;
 import com.tienda.util.Correo;
 import com.tienda.util.Fecha;
 import com.tienda.util.JPAFactory;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 /**
  *
@@ -51,12 +64,10 @@ public class ServletCompra extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         HttpSession session = request.getSession();
-        
+        String ruta = session.getServletContext().getRealPath("/ReporteCompra.jasper");
         // Cliente
-        
         String documento = request.getParameter("txtDocumento");
         int tipodocumento = Integer.parseInt(request.getParameter("txttipoDocumento"));
         String nombres = request.getParameter("txtNombres");
@@ -65,20 +76,16 @@ public class ServletCompra extends HttpServlet {
         String direccion = request.getParameter("txtDireccion");
         String email = request.getParameter("txtEmail");
         Date fechacompra = Date.valueOf(request.getParameter("txtFechacompra"));
-        
-        
-        ClientesJpaController clientesJpaController = new
-                ClientesJpaController(JPAFactory.getFACTORY());
-        
+
+        ClientesJpaController clientesJpaController = new ClientesJpaController(JPAFactory.getFACTORY());
+
         Clientes cliente = clientesJpaController.findClientes(documento);
-        
-        if(cliente == null) {
-            
-            TipoidclientesJpaController tipoidclientesJpaController =
-                    new TipoidclientesJpaController(JPAFactory.getFACTORY());
-            
-            
-     
+
+        if (cliente == null) {
+
+            TipoidclientesJpaController tipoidclientesJpaController
+                    = new TipoidclientesJpaController(JPAFactory.getFACTORY());
+
             cliente = new Clientes(documento);
             cliente.setTipodocumento(tipoidclientesJpaController.findTipoidclientes(tipodocumento));
             cliente.setNombres(nombres);
@@ -91,97 +98,108 @@ public class ServletCompra extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
-        
+        }
+
         // Productos
-        
         String nombreproducto;
         int cantidadproducto;
         int numproductos = Integer.parseInt(request.getParameter("numProductos"));
-        
+
         List<CarroCompra> carrito = new ArrayList<>();
-        
-        ProductosJpaController productosJpaController = new 
-                ProductosJpaController(JPAFactory.getFACTORY());
-        
+
+        ProductosJpaController productosJpaController = new ProductosJpaController(JPAFactory.getFACTORY());
+
         Productos producto;
-        
+
         double precioTotal = 0;
-        
+
         for (int i = 1; i <= numproductos; i++) {
             nombreproducto = request.getParameter("txtNombrePdto" + i);
             cantidadproducto = Integer.parseInt(request.getParameter("txtCantidadPdto" + i));
             producto = productosJpaController.findProductosbyName(nombreproducto);
             precioTotal += producto.getPrecioventa() * cantidadproducto;
-            carrito.add(new CarroCompra(nombreproducto,cantidadproducto));
+            carrito.add(new CarroCompra(nombreproducto, cantidadproducto));
         }
-        
+
         // Fin Productos
-        
-        
-        
         String email_usuario = request.getParameter("txtUsuario");
-        
+
         // Add Factura
-        
-        FacturasJpaController facturasJpaController =
-                new FacturasJpaController(JPAFactory.getFACTORY());
-        
+        FacturasJpaController facturasJpaController
+                = new FacturasJpaController(JPAFactory.getFACTORY());
+
         List<Facturas> listado_facturas = facturasJpaController.findFacturasEntities();
-        
+
         Integer id_factura = 1;
-        
-        if(listado_facturas != null) {
+
+        if (listado_facturas != null) {
             id_factura = listado_facturas
                     .get(listado_facturas.size() - 1).getIdfactura() + 1;
         }
-        
+
         Facturas factura = new Facturas(id_factura);
         factura.setCliente(cliente);
         factura.setValorfactura(precioTotal);
         factura.setFechafactura(fechacompra);
-        
-        UsuariosJpaController usuariosJpaController =
-                new UsuariosJpaController(JPAFactory.getFACTORY());
-        
+
+        UsuariosJpaController usuariosJpaController
+                = new UsuariosJpaController(JPAFactory.getFACTORY());
+
         Usuarios usuario = usuariosJpaController.findUsuarios(email_usuario);
-        
+
         factura.setUsuario(usuario);
         try {
             facturasJpaController.create(factura);
         } catch (Exception ex) {
             Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
         // Detalle factura
-        
-        DetallefacturasJpaController detallefacturasJpaController =
-                new DetallefacturasJpaController(JPAFactory.getFACTORY());
-        
+        DetallefacturasJpaController detallefacturasJpaController
+                = new DetallefacturasJpaController(JPAFactory.getFACTORY());
+
         Detallefacturas detalle;
-        
+
         for (CarroCompra detallepdto : carrito) {
             producto = productosJpaController.findProductosbyName(detallepdto.getNombrePdto());
-//             detalle = new Detallefacturas(id_factura, producto.getIdpdto());
-             detalle = new Detallefacturas();
-             detalle.setFacturas(factura);
-             detalle.setProductos(producto);
-             detalle.setCantidad(detallepdto.getCantidad());
+            detalle = new Detallefacturas(id_factura, producto.getIdpdto());
+//             detalle = new Detallefacturas();
+            detalle.setFacturas(factura);
+            detalle.setProductos(producto);
+            detalle.setCantidad(detallepdto.getCantidad());
             try {
                 detallefacturasJpaController.create(detalle);
             } catch (Exception ex) {
                 Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
+        // Crear Reporte
+        try {
+
+            Map parameters = new HashMap();
+
+            parameters.put("DOC_CLIENTE", documento);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(ruta,
+                    parameters,
+                    Conexion.getConexion());
+            JRPdfExporter exp = new JRPdfExporter();
+            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+            exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteCompra.pdf"));
+            SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+            exp.setConfiguration(conf);
+            exp.exportReport();
+
+//           Reporte.crearReporte(documento,session);
+        } catch (JRException ex) {
+            Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Notificación via mail
 //        Correo.mandarCorreo(email);
-        
+
         //
-        
-        
         session.setAttribute("MENSAJE", "Compra realizada con éxito.");
         request.getRequestDispatcher("view/registrarCompra.jsp").forward(request, response);
     }

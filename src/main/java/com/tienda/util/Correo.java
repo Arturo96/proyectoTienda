@@ -33,6 +33,12 @@ public class Correo {
     
     public static void mandarCorreo(String emailDestination) throws IOException {
         
+        String nombreAsunto, nombreCuerpo;
+        
+        nombreAsunto = "IMPORTANTE. CONFIRMACIÓN DE PAGO DE PRODUCTOS";
+        
+        nombreCuerpo = "Se adjunta la factura de los productos comprados en la tienda.";
+        
         Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -68,10 +74,10 @@ public class Correo {
 				message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestination));
 			
 
-			message.setSubject("Email Subject - Asunto del correo electronico");
+			message.setSubject(nombreAsunto);
 
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("Email text Body - Texto o cuerpo del correo electronico");
+			messageBodyPart.setText(nombreCuerpo);
 			
 			Multipart multipart = new MimeMultipart();
 			for (String attachmentFile : attachmentFiles) {
