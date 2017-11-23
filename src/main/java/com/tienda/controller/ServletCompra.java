@@ -17,14 +17,10 @@ import com.tienda.model.Detallefacturas;
 import com.tienda.model.Facturas;
 import com.tienda.model.Productos;
 import com.tienda.model.Usuarios;
-import com.tienda.reportes.Reporte;
 import com.tienda.util.Conexion;
 import com.tienda.util.Correo;
-import com.tienda.util.Fecha;
 import com.tienda.util.JPAFactory;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +61,7 @@ public class ServletCompra extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String ruta = session.getServletContext().getRealPath("/ReporteCompra.jasper");
+        String jasperfile = session.getServletContext().getRealPath("/ReporteCompra.jasper");
         // Cliente
         String documento = request.getParameter("txtDocumento");
         int tipodocumento = Integer.parseInt(request.getParameter("txttipoDocumento"));
@@ -178,28 +173,33 @@ public class ServletCompra extends HttpServlet {
         try {
 
             Map parameters = new HashMap();
+            
+            String nombreCompleto = nombres + " " + apellidos;
 
             parameters.put("DOC_CLIENTE", documento);
+            parameters.put("NOM_CLIENTE", nombreCompleto);
+            parameters.put("PAGO_TOTAL", precioTotal);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(ruta,
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfile,
                     parameters,
                     Conexion.getConexion());
+            String rutaPdf = "C:\\Users\\GABRIEL\\Documents\\NetBeansProjects"
+                    + "\\proyectoTienda\\src\\main\\webapp\\ReporteCompra.pdf";
             JRPdfExporter exp = new JRPdfExporter();
             exp.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exp.setExporterOutput(new SimpleOutputStreamExporterOutput("ReporteCompra.pdf"));
+            exp.setExporterOutput(new SimpleOutputStreamExporterOutput(rutaPdf));
             SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
             exp.setConfiguration(conf);
             exp.exportReport();
 
-//           Reporte.crearReporte(documento,session);
+            // Notificación via mail
+            Correo.mandarCorreo(email, rutaPdf);
+
+            //
         } catch (JRException ex) {
             Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Notificación via mail
-//        Correo.mandarCorreo(email);
-
-        //
         session.setAttribute("MENSAJE", "Compra realizada con éxito.");
         request.getRequestDispatcher("view/registrarCompra.jsp").forward(request, response);
     }

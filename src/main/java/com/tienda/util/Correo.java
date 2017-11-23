@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class Correo {
     
-    public static void mandarCorreo(String emailDestination) throws IOException {
+    public static void mandarCorreo(String emailDestination, String attachmentFile) throws IOException {
         
         String nombreAsunto, nombreCuerpo;
         
@@ -56,7 +56,7 @@ public class Correo {
 		final String gmailAccount = config.getProperty("gmail.account");
 		final String gmailPassword = config.getProperty("gmail.password");
 		//final String[] emailDestinations = config.getProperty("emaildestinations").split(";");
-		final String[] attachmentFiles = config.getProperty("attachmentfiles").split(";");
+//		final String[] attachmentFiles = config.getProperty("attachmentfiles").split(";");
 
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
@@ -80,9 +80,9 @@ public class Correo {
 			messageBodyPart.setText(nombreCuerpo);
 			
 			Multipart multipart = new MimeMultipart();
-			for (String attachmentFile : attachmentFiles) {
+//			for (String attachmentFile : attachmentFiles) {
 				addAttachment(multipart, attachmentFile);
-			}
+//			}
 			
 			//Setting email text message
 			multipart.addBodyPart(messageBodyPart);

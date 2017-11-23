@@ -16,6 +16,12 @@
 	<parameter name="DOC_CLIENTE" class="java.lang.String">
 		<parameterDescription><![CDATA[Documento del cliente]]></parameterDescription>
 	</parameter>
+	<parameter name="NOM_CLIENTE" class="java.lang.String">
+		<parameterDescription><![CDATA[Nombre del cliente]]></parameterDescription>
+	</parameter>
+	<parameter name="PAGO_TOTAL" class="java.math.BigDecimal">
+		<parameterDescription><![CDATA[Precio total]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[select p.marca as "Marca", p.nombrepdto as "Nombre", p.precioventa as "Precio", 
        p.distribuidorgarantia as "Distribuidor de la garantía", t.descripciontipopdto as "Tipo de producto", t.tiempogarantia as "Meses de garantía", d.cantidad as "Número de unidades compradas"
@@ -37,19 +43,15 @@ where f.cliente=$P{DOC_CLIENTE}]]>
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="164" height="126" uuid="66c5ace4-2061-4017-b83a-a2a0a5e65e81"/>
-				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="8587588e-e24c-49a9-ae70-137f67c0f1d8"/>
+				<reportElement style="Title" x="270" y="0" width="263" height="49" uuid="8587588e-e24c-49a9-ae70-137f67c0f1d8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font size="40" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="300" y="89" width="196" height="22" forecolor="#0000FF" uuid="b429a984-9956-4ba4-a4fe-4f7cc5d44fba"/>
+				<reportElement style="SubTitle" x="302" y="104" width="196" height="22" forecolor="#0000FF" uuid="b429a984-9956-4ba4-a4fe-4f7cc5d44fba"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
@@ -59,6 +61,20 @@ where f.cliente=$P{DOC_CLIENTE}]]>
 				<reportElement x="633" y="-73" width="219" height="209" uuid="ab2c68cf-21e6-45e1-8997-94236088f790"/>
 				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement mode="Transparent" x="27" y="62" width="171" height="30" uuid="2a29645d-99fb-4bbc-a4b0-31c62adc78df"/>
+				<textElement>
+					<font fontName="Verdana" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DOC_CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="62" width="298" height="30" uuid="bf98f889-789a-4f4e-b730-9502b3d908ea"/>
+				<textElement>
+					<font fontName="Verdana" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOM_CLIENTE}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -152,13 +168,27 @@ where f.cliente=$P{DOC_CLIENTE}]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="277cae6f-39b7-4d6f-afea-7621e36753fd"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
+			<staticText>
+				<reportElement style="SubTitle" x="56" y="22" width="196" height="22" forecolor="#0000FF" uuid="9af763ba-8a36-4c8e-a8cd-f4dae5f599ee"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Total a pagar: $]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="252" y="22" width="300" height="35" forecolor="#0000FF" uuid="0c71b7c6-791c-4d63-a8f9-5747e702cf55"/>
+				<textElement>
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PAGO_TOTAL}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
