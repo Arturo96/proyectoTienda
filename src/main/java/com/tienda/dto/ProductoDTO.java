@@ -1,7 +1,6 @@
 
 package com.tienda.dto;
 
-import java.util.Date;
 import java.util.Objects;
 
 
@@ -14,9 +13,10 @@ public class ProductoDTO {
     private String tipoproducto;
     private String distribuidorgarantia;
     private Integer cantidad;
-    private Date fechacompra;
+    private String fechacompra;
+    private String fechagarantia;
 
-    public ProductoDTO(Integer idfactura, String nombrepdto, String marca, Double precioventa, String tipoproducto, String distribuidorgarantia, Integer cantidad, Date fechacompra) {
+    public ProductoDTO(Integer idfactura, String nombrepdto, String marca, Double precioventa, String tipoproducto, String distribuidorgarantia, Integer cantidad, String fechacompra, String fechagarantia) {
         this.idfactura = idfactura;
         this.nombrepdto = nombrepdto;
         this.marca = marca;
@@ -25,9 +25,7 @@ public class ProductoDTO {
         this.distribuidorgarantia = distribuidorgarantia;
         this.cantidad = cantidad;
         this.fechacompra = fechacompra;
-    }
-
-    public ProductoDTO() {
+        this.fechagarantia = fechagarantia;
     }
 
     public Integer getIdfactura() {
@@ -86,19 +84,27 @@ public class ProductoDTO {
         this.cantidad = cantidad;
     }
 
-    public Date getFechacompra() {
+    public String getFechacompra() {
         return fechacompra;
     }
 
-    public void setFechacompra(Date fechacompra) {
+    public void setFechacompra(String fechacompra) {
         this.fechacompra = fechacompra;
+    }
+
+    public String getFechagarantia() {
+        return fechagarantia;
+    }
+
+    public void setFechagarantia(String fechagarantia) {
+        this.fechagarantia = fechagarantia;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.idfactura);
-        hash = 41 * hash + Objects.hashCode(this.nombrepdto);
+        hash = 71 * hash + Objects.hashCode(this.idfactura);
+        hash = 71 * hash + Objects.hashCode(this.nombrepdto);
         return hash;
     }
 
@@ -125,8 +131,12 @@ public class ProductoDTO {
 
     @Override
     public String toString() {
-        return "ProductoDTO{" + "idfactura=" + idfactura + ", nombrepdto=" + nombrepdto + ", marca=" + marca + ", precioventa=" + precioventa + ", tipoproducto=" + tipoproducto + ", distribuidorgarantia=" + distribuidorgarantia + ", cantidad=" + cantidad + ", fechacompra=" + fechacompra + '}';
+        return "ProductoDTO{" + "idfactura=" + idfactura + ", nombrepdto=" + nombrepdto + ", marca=" + marca + ", precioventa=" + precioventa + ", tipoproducto=" + tipoproducto + ", distribuidorgarantia=" + distribuidorgarantia + ", cantidad=" + cantidad + ", fechacompra=" + fechacompra + ", fechagarantia=" + fechagarantia + '}';
     }
+
+    
+    
+   
     
     
 }

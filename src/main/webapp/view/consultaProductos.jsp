@@ -73,7 +73,7 @@
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
                                 <li><a href="ServletListadoClientes">Consultar clientes</a></li>
 
-                                <li><a href="#">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
                             </c:choose>
                     </ul>
@@ -125,6 +125,8 @@
                     </form>
                 </div>
             </div>
+                        
+                    <h3 class="text-center"><c:out value="${sessionScope.MSJCLIENTE}"></c:out></h3>            
         </div>
 
         <div class="container">

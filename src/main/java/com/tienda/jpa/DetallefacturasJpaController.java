@@ -202,7 +202,7 @@ public class DetallefacturasJpaController implements Serializable {
        try {
            listado = (List<Detallefacturas>)
                    em.createNamedQuery("Detallefacturas.findByIdFactura")
-                     .setParameter("facturas", factura)
+                     .setParameter("factura", factura)
                      .getResultList();
            return listado;
        } catch (NoResultException ex) {
