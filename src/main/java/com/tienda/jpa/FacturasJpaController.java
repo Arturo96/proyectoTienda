@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -249,6 +250,23 @@ public class FacturasJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Facturas> findFacturasbyCliente(Clientes cliente) {
+        EntityManager em = getEntityManager();
+        List<Facturas> listado = null;
+        try {
+            listado = (List<Facturas>)em.createNamedQuery("Facturas.findByCliente")
+                    .setParameter("cliente", cliente)
+                    .getResultList();
+            return listado;
+        } catch(NoResultException ex) {
+            return null;
+        } finally {
+            em.close();
+        }
+        
+        
     }
 
     public int getFacturasCount() {

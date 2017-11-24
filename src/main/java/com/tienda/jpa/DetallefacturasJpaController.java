@@ -19,6 +19,7 @@ import com.tienda.model.Productos;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -193,6 +194,22 @@ public class DetallefacturasJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Detallefacturas> findDetallefacturasbyFactura(Facturas factura) {
+        EntityManager em = getEntityManager();
+        List<Detallefacturas> listado = null; 
+       try {
+           listado = (List<Detallefacturas>)
+                   em.createNamedQuery("Detallefacturas.findByIdFactura")
+                     .setParameter("facturas", factura)
+                     .getResultList();
+           return listado;
+       } catch (NoResultException ex) {
+           return null;
+       } finally {
+           em.close();
+       }
     }
 
     public int getDetallefacturasCount() {

@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Detallefacturas.findAll", query = "SELECT d FROM Detallefacturas d")
     , @NamedQuery(name = "Detallefacturas.findByFactura", query = "SELECT d FROM Detallefacturas d WHERE d.detallefacturasPK.factura = :factura")
     , @NamedQuery(name = "Detallefacturas.findByProducto", query = "SELECT d FROM Detallefacturas d WHERE d.detallefacturasPK.producto = :producto")
+    , @NamedQuery(name = "Detallefacturas.findByIdFactura", query = "SELECT d FROM Detallefacturas d WHERE d.facturas = :factura")    
     , @NamedQuery(name = "Detallefacturas.findByCantidad", query = "SELECT d FROM Detallefacturas d WHERE d.cantidad = :cantidad")})
 public class Detallefacturas implements Serializable {
 

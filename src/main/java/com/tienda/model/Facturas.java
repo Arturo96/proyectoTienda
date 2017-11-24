@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Facturas.findAll", query = "SELECT f FROM Facturas f")
     , @NamedQuery(name = "Facturas.findByIdfactura", query = "SELECT f FROM Facturas f WHERE f.idfactura = :idfactura")
     , @NamedQuery(name = "Facturas.findByValorfactura", query = "SELECT f FROM Facturas f WHERE f.valorfactura = :valorfactura")
+    , @NamedQuery(name = "Facturas.findByCliente", query = "SELECT f FROM Facturas f WHERE f.cliente = :cliente ORDER BY f.fechafactura")    
     , @NamedQuery(name = "Facturas.findByFechafactura", query = "SELECT f FROM Facturas f WHERE f.fechafactura = :fechafactura")})
 public class Facturas implements Serializable {
 

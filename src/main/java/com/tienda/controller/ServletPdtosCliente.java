@@ -12,6 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.tienda.jpa.ClientesJpaController;
+import com.tienda.jpa.DetallefacturasJpaController;
+import com.tienda.jpa.FacturasJpaController;
+import com.tienda.jpa.ProductosJpaController;
+import com.tienda.model.Clientes;
+import com.tienda.model.Detallefacturas;
+import com.tienda.model.Facturas;
+import com.tienda.util.JPAFactory;
+import java.util.List;
 
 /**
  *
@@ -34,7 +43,39 @@ public class ServletPdtosCliente extends HttpServlet {
         HttpSession session = request.getSession();
         
         String documento = request.getParameter("txtDocumento");
+        String path = "view/consultaProductos.jsp";
         
+        
+        ClientesJpaController clientesJpaController = new ClientesJpaController(JPAFactory.getFACTORY());
+
+        Clientes cliente = clientesJpaController.findClientes(documento);
+        
+        if(cliente == null) {
+            session.setAttribute("MSJCLIENTE", "Error: no está registrado un"
+                    + "cliente con el documento " + documento);
+        } else {
+            path = "view/listarPdtosCliente.jsp";
+            
+            FacturasJpaController facturasJpaController
+                = new FacturasJpaController(JPAFactory.getFACTORY());
+            
+            List<Facturas> listadoFacturas = 
+                    facturasJpaController.findFacturasbyCliente(cliente);
+            
+            
+            DetallefacturasJpaController detallefacturasJpaController =
+                    new DetallefacturasJpaController(JPAFactory.getFACTORY());
+            
+            List<Detallefacturas> detallefactura;
+            
+            for (Facturas factura : listadoFacturas) {
+                detallefactura = detallefacturasJpaController.findDetallefacturasbyFactura(factura);
+            }
+            
+        }
+        
+        session.setAttribute("CLIENTE", cliente);
+        request.getRequestDispatcher(path).forward(request, response);
         
         
     }
