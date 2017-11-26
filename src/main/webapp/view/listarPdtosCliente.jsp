@@ -14,7 +14,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Home</title>
+        <title>Productos comprados</title>
 
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.servletContext.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -54,20 +54,20 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
 
-                        <li>
+                        <li class="active">
                             <a href="${pageContext.servletContext.contextPath}/view/consultaProductos.jsp">Consultar productos</a></li>
                             <c:choose>
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
-                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
-                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
 
-                                <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
                             </c:choose>
                     </ul>

@@ -28,6 +28,10 @@
         <servlet-name>ServletProveedor</servlet-name>
         <servlet-class>com.tienda.controller.ServletProveedor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletEditarCompra</servlet-name>
+        <servlet-class>com.tienda.controller.ServletEditarCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ServletProveedor</servlet-name>
         <url-pattern>/ServletProveedor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarCompra</servlet-name>
+        <url-pattern>/ServletEditarCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

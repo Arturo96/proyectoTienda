@@ -67,13 +67,13 @@
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
-                                <li><a href="ServletListadoClientes">Consultar clientes</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
 
-                                <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
                             </c:choose>
                     </ul>

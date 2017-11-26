@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,12 +14,12 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Registro de Proveedores</title>
+        <title>Listado de compras</title>
 
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.servletContext.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/estilos.css">
+        <link href="${pageContext.servletContext.contextPath}/css/estilos.css" rel="stylesheet">
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -38,9 +39,6 @@
     </head>
 
     <body>
-
-        <!-- Header -->
-
         <!-- navbar-fixed-top para poner el header arriba -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -62,14 +60,14 @@
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
+                                <li class="active"><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
 
-                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
+                                <li class="active"><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
                             </c:choose>
                     </ul>
@@ -107,94 +105,66 @@
             </div>
         </nav>
 
-        <!-- Fin Header -->                        
-
         <!-- Main jumbotron for a primary marketing message or call to action -->
-        <div class="jumbotron margen">
+        <div class="jumbotron">
             <div class="container">
+                <h2 class="text-center">Listado de compras</h2>
+                <table class="table table-hover table-striped table-bordered">
 
-                <h2 class="text-center">Registro de proveedores</h2>
-                <div class="temporal">
-                    <form class="form-horizontal" method="POST" 
-                          action="${pageContext.servletContext.contextPath}/ServletProveedor">
-                        <div class="form-group">
-                            <label for="codigoprov" class="col-sm-5 control-label">Código del proveedor</label>
+                    <tr>
+                        <th>ID</th>
+                        <th>Documento del cliente</th>
+                        <th>Usuario responsable</th>
+                        <th>Acción</th>
+                    </tr>
 
-                            <div class="col-sm-3">
-                                <input type="text" name="txtCodigoprov" class="form-control" id="codigoprov" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="nombreprov" class="col-sm-5 control-label">Nombre del proveedor</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="txtNombreprov" class="form-control" id="nombreprov" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefonoprov" class="col-sm-5 control-label">Teléfono</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="txtTelefonoprov" class="form-control" id="telefonoprov" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccionprov" class="col-sm-5 control-label">Dirección</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="txtDireccionprov" class="form-control" id="direccionprov" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="emailprov" class="col-sm-5 control-label">Correo electrónico</label>
-                            <div class="col-sm-3">
-                                <input type="email" name="txtEmailprov" class="form-control" id="emailprov" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        
-                  
-                        <div class="form-group">
-                            <div class="col-sm-offset-5 col-sm-4">
-                                <button type="submit" class="btn btn-primary">Ingresar proveedor</button>
-                                
-                                
-                            </div>
-                        </div>
-                    </form>
+                    <c:forEach var="factura" items="${sessionScope.FACTURAS}">
+                        <tr>
+                            <td><c:out value="${factura.getIdfactura()}"></c:out></td>
+                            <td><c:out value="${factura.getCliente().getNrodocumento()}"></c:out></td>
+                            <td><c:out value="${factura.getUsuario().getEmailusuario()}"></c:out></td>
+                                <td>
+                                    <form action="${pageContext.servletContext.contextPath}/ServletEditarCompra" method="POST">
+                                    <button type="submit" class="btn btn-warning" name="btnaccion" value="buscar">Editar</button>
+                                    
+                                    <input type="hidden" name="txtIdFactura" value="${factura.getIdfactura()}" />
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+                <div class="centrado">
+                    <a class="btn btn-primary" 
+                       href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a>
                 </div>
+                
+                
+            </div>
+        </div>
 
-                <h3 class="text-center"><strong><c:out value="${sessionScope.MSJPROV}"></c:out></strong></h3>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
 
-                </div>
             </div>
 
-            <div class="container">
-                <!-- Example row of columns -->
-                <div class="row">
+            <hr>
 
-                </div>
-
-                <hr>
-
-                <footer>
-                    <p>&copy; 2017 Company, Inc.</p>
-                </footer>
-            </div> <!-- /container -->
+            <footer>
+                <p>&copy; 2017 Company, Inc.</p>
+            </footer>
+        </div> <!-- /container -->
 
 
-            <!-- Bootstrap core JavaScript
-            ================================================== -->
-            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="${pageContext.servletContext.contextPath}/js/jquery-3.2.1.min.js"></script>
-        <script src="${pageContext.servletContext.contextPath}/js/acciones.js"></script>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="${pageContext.servletContext.contextPath}/js/jquery-3.2.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="${pageContext.servletContext.contextPath}/js/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
-
 

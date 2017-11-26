@@ -57,7 +57,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        
+
                         <li>
                             <a href="${pageContext.servletContext.contextPath}/view/consultaProductos.jsp">Consultar productos</a></li>
                             <c:choose>
@@ -70,7 +70,7 @@
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                
+
                                 <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
                             </c:choose>
@@ -78,7 +78,7 @@
                     <c:choose>
 
                         <c:when test="${! empty sessionScope.SESION}">
-                            
+
                             <form class="navbar-form navbar-right" 
                                   action="${pageContext.servletContext.contextPath}/ServletUsuario" 
                                   method="POST">
@@ -112,9 +112,20 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
-                <h1>Hello, world!</h1>
-                <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                <h1 class="text-center">Bienvenido a SAGPT!</h1>
+                <p class="text-justify">SAGPT es un sistema de administración del proceso de garantías para los productos de las tiendas tecnológicas.</p>
+
+                <p class="text-justify">SAGPT permite facilitarle tanto al comprador del producto, como
+                    el administrador de la tienda tecnológica, la gestión de las
+                    garantías de los productos tecnológicos adquiridos o vendidos,
+                    donde al momento de que el comprador adquiera un producto, 
+                    el administrador pueda almacenar en la aplicación web la 
+                    información del comprador y la información del producto que
+                    el comprador adquirió con su garantía asociada. Además, se 
+                    le envía al correo de dicho comprador una factura virtual 
+                    con todos los detalles del producto adquirido y toda la 
+                    información de su garantía, y poder consultarla también aquí. 
+                </p>
             </div>
         </div>
 

@@ -57,40 +57,40 @@ public class ServletReportePdto extends HttpServlet {
         
         
 
-//        try {
-//
-//            Map parameters = new HashMap();
-//
-//            String nombreCompleto = factura.getCliente().getNombres() + " "
-//                    + factura.getCliente().getApellidos();
-//
-//            parameters.put("DOC_CLIENTE", factura.getCliente().getNrodocumento());
-//            parameters.put("NOM_CLIENTE", nombreCompleto);
-//            parameters.put("FECHA_COMPRA", producto.getFechacompra());
-//            parameters.put("FECHA_GARANTIA", producto.getFechagarantia());
-//
-//            byte[] fichero = JasperRunManager.runReportToPdf (jasperfile, parameters, Conexion.getConexion());
-//
-//            ServletOutputStream out;
-//            
-//           
-//
-//            // Y enviamos el pdf a la salida del navegador como podríamos hacer con cualquier otro pdf
-//            response.setContentType("application/pdf");
-//            response.setHeader("Content-disposition", "inline; filename=facturaPdto.pdf");
-//            response.setHeader("Cache-Control", "max-age=30");
-//            response.setHeader("Pragma", "No-cache");
-//            response.setDateHeader("Expires", 0);
-//            response.setContentLength(fichero.length);
-//            out = response.getOutputStream();
-//
-//            out.write(fichero, 0, fichero.length);
-//            out.flush();
-//            out.close();
-//
-//        } catch (JRException ex) {
-//            Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+
+            Map parameters = new HashMap();
+
+            String nombreCompleto = factura.getCliente().getNombres() + " "
+                    + factura.getCliente().getApellidos();
+
+            parameters.put("DOC_CLIENTE", factura.getCliente().getNrodocumento());
+            parameters.put("NOM_CLIENTE", nombreCompleto);
+            parameters.put("FECHA_COMPRA", producto.getFechacompra());
+            parameters.put("FECHA_GARANTIA", producto.getFechagarantia());
+
+            byte[] fichero = JasperRunManager.runReportToPdf (jasperfile, parameters, Conexion.getConexion());
+
+            ServletOutputStream out;
+            
+           
+
+            // Y enviamos el pdf a la salida del navegador como podríamos hacer con cualquier otro pdf
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "inline; filename=facturaPdto.pdf");
+            response.setHeader("Cache-Control", "max-age=30");
+            response.setHeader("Pragma", "No-cache");
+            response.setDateHeader("Expires", 0);
+            response.setContentLength(fichero.length);
+            out = response.getOutputStream();
+
+            out.write(fichero, 0, fichero.length);
+            out.flush();
+            out.close();
+
+        } catch (JRException ex) {
+            Logger.getLogger(ServletCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

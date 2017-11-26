@@ -13,7 +13,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Consulta de Productos</title>
+        <title>Actualización de Proveedores</title>
 
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.servletContext.contextPath}/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -62,14 +62,14 @@
 
                             <c:when test='${sessionScope.SESION.equals("admin")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                <li><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
-                                <li class="active"><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li class="active"><a href="${pageContext.servletContext.contextPath}/ServletListadoProveedores">Proveedores</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
 
-                                <li class="active"><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
+                                <li><a href="${pageContext.servletContext.contextPath}/view/listarCompras.jsp">Compras</a></li>
                                 </c:when>
                             </c:choose>
                     </ul>
@@ -158,7 +158,7 @@
                   
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-4">
-                                <button type="submit" class="btn btn-primary">Editar proveedor</button>
+                                <button type="submit" name="btnaccion" value="editar" class="btn btn-primary">Editar proveedor</button>
                                 
                                 
                             </div>
