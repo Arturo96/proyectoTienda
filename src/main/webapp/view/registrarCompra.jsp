@@ -211,6 +211,7 @@
                                 <button type="submit" class="btn btn-primary">Ingresar compra</button>
                                 <button id="agregarpdto" type="button" class="btn btn-success">Agregar producto</button>
                                 <input type="hidden" id="numProductos" name="numProductos" value="1" />
+                                <input type="hidden" id="numProductostienda" name="numProductostienda" value="${sessionScope.PRODUCTOS.size()}" />
                                 <input type="hidden" name="txtUsuario" value="${sessionScope.USUARIO}" />
                             </div>
                         </div>

@@ -4,7 +4,19 @@ $(document).ready(function () {
         var fieldWrapperNombre = $("<div class=\"form-group\"/>");
         var flabelNombre = $("<label for=\"nombrePdto" + intId + "\" \n\
         class=\"col-sm-5 control-label\"> Nombre del producto </label>");
-        var fcampoNombre = $("<div class=\"col-sm-3\"> <input type=\"text\" name=\"txtNombrePdto" + intId + "\" class=\"form-control\" id=\"nombrePdto" + intId + "\" required ></div>");
+        
+        var numPdtos = document.getElementById("numProductostienda").value;
+        
+        var fOption = "";
+        
+        for (var i = 0; i < numPdtos; i++) {
+            var aux = document.getElementsByTagName('option')[i].value;
+            fOption += "<option value=\"" + aux + "\" >" + aux + "</option>";
+        }
+        
+        
+        var fcampoNombre = $("<div class=\"col-sm-3\"> <select name=\"txtNombrePdto" + intId + "\" class=\"form-control\" >\n\
+                               " + fOption + " </select></div>");
         var fDivNombre = $("<div class=\"col-sm-4\"></div>");
         
         var fieldWrapperCantidad = $("<div class=\"form-group\"/>");
