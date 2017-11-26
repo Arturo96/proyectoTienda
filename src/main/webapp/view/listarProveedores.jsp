@@ -53,7 +53,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        
+
                         <li>
                             <a href="${pageContext.servletContext.contextPath}/view/consultaProductos.jsp">Consultar productos</a></li>
                             <c:choose>
@@ -66,7 +66,7 @@
 
                             <c:when test='${sessionScope.SESION.equals("empleado")}'>
                                 <li><a href="${pageContext.servletContext.contextPath}/ServletListadoClientes">Consultar clientes</a></li>
-                                
+
                                 <li><a href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a></li>
                                 </c:when>
                             </c:choose>
@@ -74,7 +74,7 @@
                     <c:choose>
 
                         <c:when test="${! empty sessionScope.SESION}">
-                            
+
                             <form class="navbar-form navbar-right" 
                                   action="${pageContext.servletContext.contextPath}/ServletUsuario" 
                                   method="POST">
@@ -110,25 +110,40 @@
             <div class="container">
                 <h2 class="text-center">Listado de proveedores</h2>
                 <table class="table table-hover table-striped table-bordered">
-                    
+
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Teléfono</th>
                         <th>Dirección</th>
                         <th>Email</th>
+                        <th>Acción</th>
                     </tr>
-                    
+
                     <c:forEach var="proveedor" items="${sessionScope.PROVEEDORES}">
                         <tr>
-                        <td><c:out value="${proveedor.getIdprov()}"></c:out></td>
-                        <td><c:out value="${proveedor.getNombreprov()}"></c:out></td>
-                        <td><c:out value="${proveedor.getTelefonoprov()}"></c:out></td>
-                        <td><c:out value="${proveedor.getDireccionprov()}"></c:out></td>
-                        <td><c:out value="${proveedor.getEmailprov()}"></c:out></td>
+                            <td><c:out value="${proveedor.getIdprov()}"></c:out></td>
+                            <td><c:out value="${proveedor.getNombreprov()}"></c:out></td>
+                            <td><c:out value="${proveedor.getTelefonoprov()}"></c:out></td>
+                            <td><c:out value="${proveedor.getDireccionprov()}"></c:out></td>
+                            <td><c:out value="${proveedor.getEmailprov()}"></c:out></td>
+                                <td>
+                                    <form action="${pageContext.servletContext.contextPath}/ServletProveedor" method="POST">
+                                    <button type="submit" class="btn btn-warning" name="btnaccion" value="buscar">Editar</button>
+                                    <button type="submit" class="btn btn-danger" name="btnaccion" value="eliminar">Eliminar</button>
+                                    <input type="hidden" name="txtCodigoprov" value="${proveedor.getIdprov()}" />
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
+
+                <div class="centrado">
+                    <a class="btn btn-primary" 
+                       href="${pageContext.servletContext.contextPath}/view/crearProveedor.jsp">Agregar proveedor</a>
+                </div>
+                
+                <h3 class="text-center"><strong><c:out value="${sessionScope.MSJLISTAPROV}"></c:out></strong></h3>
             </div>
         </div>
 

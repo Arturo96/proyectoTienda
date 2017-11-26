@@ -189,6 +189,7 @@ public class ClientesJpaController implements Serializable {
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Clientes.class));
+            cq.orderBy(em.getCriteriaBuilder().asc(cq.from(Clientes.class).get("nrodocumento")));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);

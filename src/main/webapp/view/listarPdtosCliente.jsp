@@ -142,8 +142,9 @@
                                 <td><c:out value="${producto.getFechacompra()}"></c:out></td>
                                 <td><c:out value="${producto.getFechagarantia()}"></c:out></td>
                                     <td>
-                                        <form method="POST" action="${pageContext.servletContext.contextPath}/ServletReportePdto">
-                                        <input type="hidden" name="" />
+                                        <form method="POST" target="_blank" action="${pageContext.servletContext.contextPath}/ServletReportePdto">
+                                        <input type="hidden" value="${producto.getIdfactura()}" name="txtIdFactura" />
+                                        <input type="hidden" value="${producto.getNombrepdto()}" name="txtNombrepdto" />
                                         <button type="submit" class="btn btn-warning" value="PDF">Generar PDF</button>
                                     </form>
                                 </td>

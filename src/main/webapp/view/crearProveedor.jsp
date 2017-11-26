@@ -113,111 +113,60 @@
         <div class="jumbotron margen">
             <div class="container">
 
-                <h2 class="text-center">Ingreso de compra</h2>
+                <h2 class="text-center">Registro de proveedores</h2>
                 <div class="temporal">
                     <form class="form-horizontal" method="POST" 
-                          action="${pageContext.servletContext.contextPath}/ServletCompra">
+                          action="${pageContext.servletContext.contextPath}/ServletProveedor">
                         <div class="form-group">
-                            <label for="documento" class="col-sm-5 control-label">Documento</label>
+                            <label for="codigoprov" class="col-sm-5 control-label">Código del proveedor</label>
 
                             <div class="col-sm-3">
-                                <input type="text" name="txtDocumento" class="form-control" id="documento" required>
+                                <input type="text" name="txtCodigoprov" class="form-control" id="codigoprov" required>
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nombreprov" class="col-sm-5 control-label">Nombre del proveedor</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="txtNombreprov" class="form-control" id="nombreprov" required>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>
                         <div class="form-group">
-                            <label for="tipodocumento" class="col-sm-5 control-label">Tipo de Documento</label>
-
+                            <label for="telefonoprov" class="col-sm-5 control-label">Teléfono</label>
                             <div class="col-sm-3">
-                                <select name="txttipoDocumento" class="form-control" id="tipodocumento">
-                                    <option value="1">Cédula de ciudadanía</option>
-                                    <option value="2">Tarjeta de identidad</option>
-                                    <option value="3">Cédula de Extranjería</option>
-                                </select>
+                                <input type="text" name="txtTelefonoprov" class="form-control" id="telefonoprov" required>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>
                         <div class="form-group">
-                            <label for="nombres" class="col-sm-5 control-label">Nombres</label>
+                            <label for="direccionprov" class="col-sm-5 control-label">Dirección</label>
                             <div class="col-sm-3">
-                                <input type="text" name="txtNombres" class="form-control" id="nombres" required>
+                                <input type="text" name="txtDireccionprov" class="form-control" id="direccionprov" required>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>
                         <div class="form-group">
-                            <label for="apellidos" class="col-sm-5 control-label">Apellidos</label>
+                            <label for="emailprov" class="col-sm-5 control-label">Correo electrónico</label>
                             <div class="col-sm-3">
-                                <input type="text" name="txtApellidos" class="form-control" id="apellidos" required>
+                                <input type="email" name="txtEmailprov" class="form-control" id="emailprov" required>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="telefono" class="col-sm-5 control-label">Teléfono</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="txtTelefono" class="form-control" id="telefono" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion" class="col-sm-5 control-label">Dirección</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="txtDireccion" class="form-control" id="direccion" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="correo" class="col-sm-5 control-label">Email</label>
-                            <div class="col-sm-3">
-                                <input type="email" name="txtEmail" class="form-control" id="correo" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <!-- Info del producto -->
-                        <div id="infoproductos">
-                            <div class="form-group">
-                                <label for="nombrePdto1" class="col-sm-5 control-label">Nombre del producto</label>
-                                <div class="col-sm-3">
-                                   
-                                    <select name="txtNombrePdto1" class="form-control" >
-                                        <c:forEach var="producto" items="${sessionScope.PRODUCTOS}">
-                                            <option value="${producto.getNombrepdto()}">
-                                                <c:out value="${producto.getNombrepdto()}"></c:out>
-                                            </option>
-                                        </c:forEach>
-                                        
-                                    </select>
-                                <!--    <input type="text" name="" class="form-control" id="nombrePdto1" required>-->
-                                </div>
-                                <div class="col-sm-4"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cantidadPdto1" class="col-sm-5 control-label">Unidades compradas</label>
-                                <div class="col-sm-3">
-                                    <input type="text" name="txtCantidadPdto1" class="form-control" id="cantidadPdto1" required>
-                                </div>
-                                <div class="col-sm-4"></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="fechacompra" class="col-sm-5 control-label">Fecha de compra</label>
-                            <div class="col-sm-3">
-                                <input type="date" name="txtFechacompra" class="form-control" id="fechacompra" required>
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <!-- Fin Info del producto -->
+                        
+                  
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-4">
-                                <button type="submit" class="btn btn-primary">Ingresar compra</button>
-                                <button id="agregarpdto" type="button" class="btn btn-success">Agregar producto</button>
-                                <input type="hidden" id="numProductos" name="numProductos" value="1" />
-                                <input type="hidden" name="txtUsuario" value="${sessionScope.USUARIO}" />
+                                <button type="submit" class="btn btn-primary">Ingresar proveedor</button>
+                                
+                                
                             </div>
                         </div>
                     </form>
                 </div>
 
-                <h3 class="text-center"><strong><c:out value="${sessionScope.MENSAJE}"></c:out></strong></h3>
+                <h3 class="text-center"><strong><c:out value="${sessionScope.MSJPROV}"></c:out></strong></h3>
 
                 </div>
             </div>

@@ -24,6 +24,10 @@
         <servlet-name>ServletReportePdto</servlet-name>
         <servlet-class>com.tienda.controller.ServletReportePdto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletProveedor</servlet-name>
+        <servlet-class>com.tienda.controller.ServletProveedor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ServletReportePdto</servlet-name>
         <url-pattern>/ServletReportePdto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletProveedor</servlet-name>
+        <url-pattern>/ServletProveedor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
