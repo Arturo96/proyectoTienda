@@ -22,6 +22,9 @@
 	<parameter name="PAGO_TOTAL" class="java.math.BigDecimal">
 		<parameterDescription><![CDATA[Precio total]]></parameterDescription>
 	</parameter>
+	<parameter name="IDFACTURA" class="java.lang.Integer">
+		<parameterDescription><![CDATA[Factura cliente]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[select p.marca as "Marca", p.nombrepdto as "Nombre", p.precioventa as "Precio", 
        p.distribuidorgarantia as "Distribuidor de la garantía", t.descripciontipopdto as "Tipo de producto", t.tiempogarantia as "Meses de garantía", d.cantidad as "Número de unidades compradas"
@@ -29,7 +32,7 @@ from clientes c inner join facturas f on f.cliente =c.nrodocumento
 inner join detallefacturas d on d.factura = f.idfactura 
 inner join productos p on d.producto = p.idpdto 
 inner join tipoproductos t on p.tipopdto = t.idtipopdto
-where f.cliente=$P{DOC_CLIENTE}]]>
+where f.cliente=$P{DOC_CLIENTE} AND f.idfactura=$P{IDFACTURA}]]>
 	</queryString>
 	<field name="Marca" class="java.lang.String"/>
 	<field name="Nombre" class="java.lang.String"/>
@@ -44,8 +47,8 @@ where f.cliente=$P{DOC_CLIENTE}]]>
 	<title>
 		<band height="136" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="270" y="0" width="263" height="49" uuid="8587588e-e24c-49a9-ae70-137f67c0f1d8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement style="Title" x="168" y="0" width="263" height="49" uuid="8587588e-e24c-49a9-ae70-137f67c0f1d8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="40" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Factura]]></text>
@@ -74,6 +77,13 @@ where f.cliente=$P{DOC_CLIENTE}]]>
 					<font fontName="Verdana" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NOM_CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="0" width="139" height="49" uuid="ebb7a90f-7ac6-4a7d-bfd3-ce1b267024d4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="40" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{IDFACTURA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -113,8 +113,8 @@
                     
                     <tr>
                         <th>Documento</th>
-                        <th>Nombres</th>
                         <th>Apellidos</th>
+                        <th>Nombres</th>
                         <th>Teléfono</th>
                         <th>Dirección</th>
                         <th>Email</th>
@@ -123,8 +123,8 @@
                     <c:forEach var="cliente" items="${sessionScope.CLIENTES}">
                         <tr>
                         <td><c:out value="${cliente.getNrodocumento()}"></c:out></td>
-                        <td><c:out value="${cliente.getNombres()}"></c:out></td>
                         <td><c:out value="${cliente.getApellidos()}"></c:out></td>
+                        <td><c:out value="${cliente.getNombres()}"></c:out></td>
                         <td><c:out value="${cliente.getTelefonocte()}"></c:out></td>
                         <td><c:out value="${cliente.getDireccioncte()}"></c:out></td>
                         <td><c:out value="${cliente.getEmailcte()}"></c:out></td>

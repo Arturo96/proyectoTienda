@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -204,6 +205,22 @@ public class UsuariosJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(Usuarios.class, id);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public Usuarios findUsuarios(String id, String clave) {
+        EntityManager em = getEntityManager();
+        Usuarios usuarios = null;
+        try {
+            usuarios = (Usuarios) em.createNamedQuery("Usuarios.findByEmailClave")
+                    .setParameter("emailusuario", id)
+                    .setParameter("password", clave)
+                    .getSingleResult();
+            return usuarios;
+        } catch (NoResultException ex) {
+            return null;
         } finally {
             em.close();
         }

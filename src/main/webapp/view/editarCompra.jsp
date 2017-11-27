@@ -221,7 +221,7 @@
                     </form>
                 </div>
 
-                
+                <h3 class="text-center"><strong><c:out value="${sessionScope.MENSAJEEDITAR}"></c:out></strong></h3>
 
                 </div>
             </div>

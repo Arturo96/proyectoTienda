@@ -110,7 +110,22 @@ public class ServletCompra extends HttpServlet {
 
         for (int i = 1; i <= numproductos; i++) {
             nombreproducto = request.getParameter("txtNombrePdto" + i);
-            cantidadproducto = Integer.parseInt(request.getParameter("txtCantidadPdto" + i));
+            if (i > 1) {
+                for (int j = 1; j < i; j++) {
+                    if (carrito.get(j - 1).getNombrePdto().equals(nombreproducto)) {
+                        session.setAttribute("MENSAJE", "No se puede ingresar más de un producto igual.");
+                        request.getRequestDispatcher("view/registrarCompra.jsp").forward(request, response);
+                        return;
+                    }
+                }
+            }
+            String auxTxtCantidadPdto = request.getParameter("txtCantidadPdto" + i);
+            if (!auxTxtCantidadPdto.matches("[1-9][0-9]*")) {
+                session.setAttribute("MENSAJE", "Se debe ingresar un número en cantidad del producto comprado.");
+                request.getRequestDispatcher("view/registrarCompra.jsp").forward(request, response);
+                return;
+            }
+            cantidadproducto = Integer.parseInt(auxTxtCantidadPdto);
             producto = productosJpaController.findProductosbyName(nombreproducto);
             precioTotal += producto.getPrecioventa() * cantidadproducto;
             carrito.add(new CarroCompra(nombreproducto, cantidadproducto));
@@ -173,12 +188,13 @@ public class ServletCompra extends HttpServlet {
         try {
 
             Map parameters = new HashMap();
-            
+
             String nombreCompleto = nombres + " " + apellidos;
 
             parameters.put("DOC_CLIENTE", documento);
             parameters.put("NOM_CLIENTE", nombreCompleto);
             parameters.put("PAGO_TOTAL", precioTotal);
+            parameters.put("IDFACTURA", id_factura);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfile,
                     parameters,

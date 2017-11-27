@@ -121,7 +121,7 @@
                             <label for="codigoprov" class="col-sm-5 control-label">Código del proveedor</label>
 
                             <div class="col-sm-3">
-                                <input type="text" name="txtCodigoprov" class="form-control" id="codigoprov" readonly>
+                                <input type="text" value="${sessionScope.PROVEEDOR.getIdprov()}" name="txtCodigoprov" class="form-control" id="codigoprov" readonly>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>
@@ -143,7 +143,7 @@
                         <div class="form-group">
                             <label for="direccionprov" class="col-sm-5 control-label">Dirección</label>
                             <div class="col-sm-3">
-                                <input type="text" value="${sessionScope.PROVEEDOR.getDireccionprov()}" name="txtDireccionprovo" class="form-control" id="direccionprov" required>
+                                <input type="text" value="${sessionScope.PROVEEDOR.getDireccionprov()}" name="txtDireccionprov" class="form-control" id="direccionprov" required>
                             </div>
                             <div class="col-sm-4"></div>
                         </div>

@@ -10,7 +10,7 @@ $(document).ready(function () {
         var fOption = "";
         
         for (var i = 0; i < numPdtos; i++) {
-            var aux = document.getElementsByTagName('option')[i].value;
+            var aux = document.getElementById("nombrePdto1").getElementsByTagName('option')[i].value;
             fOption += "<option value=\"" + aux + "\" >" + aux + "</option>";
         }
         

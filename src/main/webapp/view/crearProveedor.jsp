@@ -158,7 +158,7 @@
                   
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-4">
-                                <button type="submit" class="btn btn-primary">Ingresar proveedor</button>
+                                <button type="submit" name="btnaccion" value="ingresar" class="btn btn-primary">Ingresar proveedor</button>
                                 
                                 
                             </div>

@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 public class ServletReportePdto extends HttpServlet {
 
@@ -64,10 +66,12 @@ public class ServletReportePdto extends HttpServlet {
             String nombreCompleto = factura.getCliente().getNombres() + " "
                     + factura.getCliente().getApellidos();
 
+            parameters.put("ID_FACTURA", idfactura);
             parameters.put("DOC_CLIENTE", factura.getCliente().getNrodocumento());
             parameters.put("NOM_CLIENTE", nombreCompleto);
             parameters.put("FECHA_COMPRA", producto.getFechacompra());
             parameters.put("FECHA_GARANTIA", producto.getFechagarantia());
+            parameters.put("NOMPRODUCTO", nombre_pdto);
 
             byte[] fichero = JasperRunManager.runReportToPdf (jasperfile, parameters, Conexion.getConexion());
 

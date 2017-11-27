@@ -160,6 +160,7 @@ public class ProveedoresJpaController implements Serializable {
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(Proveedores.class));
+            cq.orderBy(em.getCriteriaBuilder().asc(cq.from(Proveedores.class).get("idprov")));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);

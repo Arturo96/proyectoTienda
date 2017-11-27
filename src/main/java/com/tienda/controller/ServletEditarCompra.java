@@ -9,7 +9,9 @@ import com.tienda.dto.PdtoConsecutivoDTO;
 import com.tienda.jpa.DetallefacturasJpaController;
 import com.tienda.jpa.FacturasJpaController;
 import com.tienda.jpa.ProductosJpaController;
+import com.tienda.jpa.exceptions.NonexistentEntityException;
 import com.tienda.model.Detallefacturas;
+import com.tienda.model.DetallefacturasPK;
 import com.tienda.model.Facturas;
 import com.tienda.model.Productos;
 import com.tienda.util.JPAFactory;
@@ -84,29 +86,45 @@ public class ServletEditarCompra extends HttpServlet {
                 int numProductos = detallesFactura.size();
 
                 for (int j = 1; j <= numProductos; j++) {
-                    nombreProductos.add(request.getParameter("txtNombrePdto" + j));
-                    cantidadProductos.add(Integer.parseInt(request.getParameter("txtCantidadPdto" + j)));
+                    String nombrePdtoAux = request.getParameter("txtNombrePdto" + j);
+                    if (j > 1) {
+                        for (int k = 1; k < j; k++) {
+                            if (nombreProductos.get(k - 1).equals(nombrePdtoAux)) {
+                                session.setAttribute("MENSAJEEDITAR", "No se puede ingresar más de un producto igual.");
+                                request.getRequestDispatcher("view/editarCompra.jsp").forward(request, response);
+                                return;
+                            }
+                        }
+                    }
+                    nombreProductos.add(nombrePdtoAux);
+                    String cantidadPdtoAux = request.getParameter("txtCantidadPdto" + j);
+                    if (!cantidadPdtoAux.matches("[1-9][0-9]*")) {
+                        session.setAttribute("MENSAJEEDITAR", "Se debe ingresar un número en cantidad del producto comprado.");
+                        request.getRequestDispatcher("view/editarCompra.jsp").forward(request, response);
+                        return;
+                    }
+                    cantidadProductos.add(Integer.parseInt(cantidadPdtoAux));
                 }
-                
-                ProductosJpaController productosJpaController = new
-                        ProductosJpaController(JPAFactory.getFACTORY());
-                
-                
-                
+
+                ProductosJpaController productosJpaController = new ProductosJpaController(JPAFactory.getFACTORY());
+
                 for (int j = 0; j < numProductos; j++) {
-                    Productos producto = 
-                            productosJpaController.findProductosbyName(nombreProductos.get(j));
+                    Productos producto
+                            = productosJpaController.findProductosbyName(nombreProductos.get(j));
                     Detallefacturas detFactura = detallesFactura.get(j);
-                    detFactura.setProductos(producto);
-                    detFactura.setCantidad(cantidadProductos.get(j));
-            try {
-                detallefacturasJpaController.edit(detFactura);
-            } catch (Exception ex) {
-                Logger.getLogger(ServletEditarCompra.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    try {
+                        detallefacturasJpaController.destroy(detallesFactura.get(j).getDetallefacturasPK());
+                        DetallefacturasPK aux = new DetallefacturasPK(id_factura, producto.getIdpdto());
+                        detFactura.setDetallefacturasPK(aux);
+                        detFactura.setProductos(producto);
+                        detFactura.setCantidad(cantidadProductos.get(j));
+                        detallefacturasJpaController.create(detFactura);
+                    } catch (NonexistentEntityException ex) {
+                        Logger.getLogger(ServletEditarCompra.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ServletEditarCompra.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                
-                
 
                 path = "view/listarCompras.jsp";
                 break;

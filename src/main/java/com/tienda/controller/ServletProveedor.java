@@ -55,7 +55,7 @@ public class ServletProveedor extends HttpServlet {
         switch (accion) {
 
             case "ingresar":
-                nombreProv = request.getParameter("txtNombrePdto");
+                nombreProv = request.getParameter("txtNombreprov");
                 telefono = request.getParameter("txtTelefonoprov");
                 direccion = request.getParameter("txtDireccionprov");
                 email = request.getParameter("txtEmailprov");
@@ -84,7 +84,7 @@ public class ServletProveedor extends HttpServlet {
                 path = "view/editarProveedor.jsp";
                 break;
             case "editar":
-                nombreProv = request.getParameter("txtNombrePdto");
+                nombreProv = request.getParameter("txtNombreprov");
                 telefono = request.getParameter("txtTelefonoprov");
                 direccion = request.getParameter("txtDireccionprov");
                 email = request.getParameter("txtEmailprov");
@@ -122,7 +122,7 @@ public class ServletProveedor extends HttpServlet {
 
                 if (existeProvenProd) {
                     session.setAttribute("MSJLISTAPROV", "Error: hay movimientos que dependen"
-                            + "de ese proveedor");
+                            + " de ese proveedor");
                 } else {
                     try {
                         proveedoresJpaController.destroy(codigoProv);

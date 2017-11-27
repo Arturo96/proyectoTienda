@@ -109,37 +109,42 @@
         <div class="jumbotron">
             <div class="container">
                 <h2 class="text-center">Listado de compras</h2>
-                <table class="table table-hover table-striped table-bordered">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8 ">
+                        <table class="table table-condensed table-hover table-striped table-bordered">
 
-                    <tr>
-                        <th>ID</th>
-                        <th>Documento del cliente</th>
-                        <th>Usuario responsable</th>
-                        <th>Acción</th>
-                    </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Documento del cliente</th>
+                                <th>Usuario responsable</th>
+                                <th>Acción</th>
+                            </tr>
 
-                    <c:forEach var="factura" items="${sessionScope.FACTURAS}">
-                        <tr>
-                            <td><c:out value="${factura.getIdfactura()}"></c:out></td>
-                            <td><c:out value="${factura.getCliente().getNrodocumento()}"></c:out></td>
-                            <td><c:out value="${factura.getUsuario().getEmailusuario()}"></c:out></td>
-                                <td>
-                                    <form action="${pageContext.servletContext.contextPath}/ServletEditarCompra" method="POST">
-                                    <button type="submit" class="btn btn-warning" name="btnaccion" value="buscar">Editar</button>
-                                    
-                                    <input type="hidden" name="txtIdFactura" value="${factura.getIdfactura()}" />
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
+                            <c:forEach var="factura" items="${sessionScope.FACTURAS}">
+                                <tr>
+                                    <td><c:out value="${factura.getIdfactura()}"></c:out></td>
+                                    <td><c:out value="${factura.getCliente().getNrodocumento()}"></c:out></td>
+                                    <td><c:out value="${factura.getUsuario().getEmailusuario()}"></c:out></td>
+                                        <td>
+                                            <form action="${pageContext.servletContext.contextPath}/ServletEditarCompra" method="POST">
+                                            <button type="submit" class="btn btn-warning" name="btnaccion" value="buscar">Editar</button>
+
+                                            <input type="hidden" name="txtIdFactura" value="${factura.getIdfactura()}" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
 
                 <div class="centrado">
                     <a class="btn btn-primary" 
                        href="${pageContext.servletContext.contextPath}/view/registrarCompra.jsp">Registrar compra</a>
                 </div>
-                
-                
+
+
             </div>
         </div>
 

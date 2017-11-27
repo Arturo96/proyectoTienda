@@ -5,7 +5,10 @@
  */
 package com.tienda.controller;
 
+import com.tienda.jpa.FacturasJpaController;
 import com.tienda.jpa.ProductosJpaController;
+import com.tienda.jpa.UsuariosJpaController;
+import com.tienda.model.Usuarios;
 import com.tienda.util.JPAFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,24 +48,29 @@ public class ServletUsuario extends HttpServlet {
         if (accion.equals("signIn")) {
             email = request.getParameter("txtEmail");
             String clave = request.getParameter("txtPassword");
-
-            if (email.equals("admin@gmail.com") && clave.equals("admin")) {
-                rol = "admin";
-                
+            
+            UsuariosJpaController usuariosJpaController = new
+                    UsuariosJpaController(JPAFactory.getFACTORY());
+            
+            Usuarios user = usuariosJpaController.findUsuarios(email, clave);
+            
+            if(user != null) {
+                rol = user.getRol().getDescripcionrol();
             }
 
-            if (email.equals("empleado@gmail.com") && clave.equals("empleado")) {
-                rol = "empleado";
-                
-            }
+           
         } 
         
         ProductosJpaController productosJpaController = new
                 ProductosJpaController(JPAFactory.getFACTORY());
+        
+        FacturasJpaController facturasJpaController = new
+                FacturasJpaController(JPAFactory.getFACTORY());
 
         session.setAttribute("SESION", rol);
         session.setAttribute("USUARIO", email);
         session.setAttribute("PRODUCTOS", productosJpaController.findProductosEntities());
+        session.setAttribute("FACTURAS", facturasJpaController.findFacturasEntities());
         request.getRequestDispatcher(path).forward(request, response);
 
     }

@@ -108,6 +108,14 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
+                <div>
+                    <h2>Documento: <c:out value="${sessionScope.CLIENTE.getNrodocumento()}"></c:out></h2>
+                </div>
+                <div>
+                    <h2>Cliente: <c:out value="${sessionScope.CLIENTE.getNombres()} 
+                                               ${sessionScope.CLIENTE.getApellidos()}"></c:out></h2>
+                </div>
+                
                 <h2 class="text-center">Productos comprados</h2>
 
                 <c:if test="${! empty sessionScope.PDTOSCONGARANTIA}">

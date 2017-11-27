@@ -178,7 +178,7 @@
                                 <label for="nombrePdto1" class="col-sm-5 control-label">Nombre del producto</label>
                                 <div class="col-sm-3">
                                    
-                                    <select name="txtNombrePdto1" class="form-control" >
+                                    <select id="nombrePdto1" name="txtNombrePdto1" class="form-control" >
                                         <c:forEach var="producto" items="${sessionScope.PRODUCTOS}">
                                             <option value="${producto.getNombrepdto()}">
                                                 <c:out value="${producto.getNombrepdto()}"></c:out>
