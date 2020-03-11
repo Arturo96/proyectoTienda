@@ -199,8 +199,7 @@ public class ServletCompra extends HttpServlet {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperfile,
                     parameters,
                     Conexion.getConexion());
-            String rutaPdf = "C:\\Users\\GABRIEL\\Documents\\NetBeansProjects"
-                    + "\\proyectoTienda\\src\\main\\webapp\\ReporteCompra.pdf";
+            String rutaPdf = "D:\\ProyectosJava\\proyectoTienda\\ReporteCompra.pdf";
             JRPdfExporter exp = new JRPdfExporter();
             exp.setExporterInput(new SimpleExporterInput(jasperPrint));
             exp.setExporterOutput(new SimpleOutputStreamExporterOutput(rutaPdf));
